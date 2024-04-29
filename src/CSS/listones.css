@@ -1,0 +1,90 @@
+.liston1
+{
+    display: flex;
+    padding-left: 70px;
+    padding-right: 60px;
+    width: 100%;
+    background-color: rgba(147, 255, 255, 0.192);
+    justify-content: space-between;
+}
+
+.liston1 img
+{
+    width: 300px;
+}
+
+.liston1 .text
+{
+    padding: 5px;
+}
+
+@media (max-width: 700px) {
+    
+    .liston1{
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 700px) {
+    
+
+    .liston2
+    {
+        grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    }
+}
+
+
+.liston2
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    color:white;
+    place-items: center;
+    padding: 10px;
+
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.986);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.liston2 img
+{
+    width: 300px;
+    padding: 10px;
+}
+
+@media (max-width: 700px) {
+    
+    .liston1, .liston3{
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+.liston3
+{
+    display: flex;
+    padding-top: 5px;
+    padding-left: 70px;
+    padding-right: 70px;
+    width: 100%;
+    background-color: rgba(112, 255, 255, 0.192);
+    justify-content: space-between;
+}
+
+.liston3 img
+{
+    width: 300px;
+    padding: 10px;
+}
+
+@media (max-width: 700px) {
+    
+    .liston1{
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,81 @@
+header
+{
+    display: flex;
+    min-height:  10%;
+    background-image: url("../IMG/header.jpg");
+    background-size: cover;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+ul 
+{
+    font-weight: 600;
+    list-style: none;
+    
+}
+
+ul .social_ned
+{
+    font-size: 40px;
+    padding: 1px;
+}
+
+ul .social_ned a { padding-left:10px;  }
+
+ul .social_ned .fa-square-facebook { color: #3b5998; }
+ul .social_ned .fa-square-facebook:hover { color: #5177c9; }
+ul .social_ned .fa-square-whatsapp { color: #25D366; }
+ul .social_ned .fa-square-whatsapp:hover { color: #4bf188; }
+ul .social_ned .fa-square-instagram { color: #405DE6; }
+ul .social_ned .fa-square-instagram:hover { color: #526eff; }
+
+header a
+{
+    text-decoration: none;
+    color: black;
+}
+
+header nav
+{
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px;
+    border-radius: 20px;
+    width: max-content;
+    box-shadow: 0px 10px 20px -3px black;
+}
+
+header nav a
+{
+    /*border: black 1px solid;*/
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+header nav a:hover { background-color: rgb(145, 144, 144); }
+
+.logo
+{
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo img { height: 150px; width: 200px; }
+
+@media (max-width:700px)
+{
+    header { flex-direction: column; }
+}

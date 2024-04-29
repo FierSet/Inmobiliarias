@@ -1,0 +1,102 @@
+
+.acerca-de-base
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    padding: 20px;
+}
+
+.descripcion
+{
+    width: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+}
+
+.marge-text
+{
+    margin: 0 0 10px;
+}
+/* zona de cartas_______________________________________________*/
+.personal-base
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    place-items: center;
+    width: 100%;
+    /*border: black 1px solid; */
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+}
+
+.carta-persona
+{
+    margin: 10px;
+    position: relative;
+    width: 250px;
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    
+}
+
+.carta-persona .zonaimagen
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    
+}
+
+.carta-persona .zonaimagen img{
+    
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+    width: 100%;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.carta-persona .datos, .carta-persona .name-profecion
+{
+    padding: 5px;
+}
+
+.carta-persona .datos
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+i{
+    
+    cursor: pointer;
+    
+}
+
+.fa-linkedin {color: #0e76a8;}
+
+.fa-github {color: black;}
+
+.fa-google {color: #b32319;}
+
+.fa-free-code-camp{color:black;}
+
+.fa-file{color:black;}
+
+.carta-persona .name-profecion
+{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    justify-content: center;
+    font-weight: 600;
+}
+
+/*end zona de cartas_______________________________________________*/

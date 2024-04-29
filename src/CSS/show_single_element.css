@@ -1,0 +1,139 @@
+.single-element-base
+{
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    background-color: rgba(128, 128, 128, 0.603);
+    z-index: 3;
+    
+}
+
+ .single-local
+{
+    position: relative;
+    
+    font-size: 20px;
+    margin: 0 auto;
+    width: 70%;
+    padding: 30px;
+    height: 70%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+}
+
+
+/*zona de imagenes_______________________________*/
+.single-element-base .single-local .imagen-zone
+{
+    display: grid;
+    min-width: 100px;
+    max-width: 580px;
+    min-height: 100px;
+    height: 430px;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    place-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    
+    /*border: black 1px solid; */
+}
+
+.dato-carta-lugar
+{
+    font-size:3vw;
+    
+}
+
+.dato-carta
+{
+    font-size:3vw;
+    min-width: 10%;
+    max-width: 100%;
+}
+
+.single-element-base .single-local .dato-carta-titulo
+{
+    width: 100%;
+    font-weight: 700;
+    font-size:3vw;
+}
+
+.single-element-base .single-local .imagen-zone img
+{
+    width: 600px;
+    height: 280px;
+    margin-bottom: 5px;    
+}
+/*end zona de imagenes_______________________________*/
+
+.descripcion
+{
+    width: 20px;
+    text-align: justify;   
+    font-size:2vw;
+}
+
+
+.single-element-base .single-local .status-casalocal
+{
+    position: absolute;
+    top: 0;
+    right: 10%;
+    background-color: #fff;
+    padding: 3px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    z-index: 1;
+
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #25D366;
+    color: white;
+    font-size:3vw;
+}
+
+.single-element-base .single-local .close
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #d32525;
+    color: white;
+}
+
+.single-element-base .single-imagen{
+    position: fixed;
+    align-content: center;
+    overflow: hidden;
+    
+    width: 100%;
+    height: 100%;
+    
+    top: 0%;
+    
+    z-index: 4;
+}
+
+.single-element-base .single-imagen img{
+
+    width: 100%;
+    padding: 10px;
+}
+
