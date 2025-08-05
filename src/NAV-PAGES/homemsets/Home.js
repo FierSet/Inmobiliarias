@@ -127,14 +127,11 @@ function Home(props) {
 
 }
 
-
-
 function Previewhome(props) {
     return (
         <div key='section-casalocal' className='section-casalocal'>
 
             <div className='view-localles'>
-
                 {/* */}
                 {
                     props.objetocasa.map(casalocal => (
@@ -162,8 +159,26 @@ function Previewhome(props) {
 
                                     <div className='slider-nav'>
                                         {
-                                            [1, 2, 3].map(i => (
-                                                <a href={"#" + casalocal['ID'] + 'Imagen' + i} key={"#" + casalocal['ID'] + 'Imagen' + i} aria-hidden="true" />
+                                            [1, 2, 3].map(i =>
+                                            (
+                                                <a
+                                                    href={"#" + casalocal['ID'] + 'Imagen' + i}
+                                                    key={"#" + casalocal['ID'] + 'Imagen' + i}
+                                                    id={"href" + casalocal['ID'] + 'Imagen' + i}
+                                                    aria-hidden="true"
+                                                    onClick={e => 
+                                                    {
+                                                        e.preventDefault();
+                                                        const img = document.getElementById(casalocal['ID'] + 'Imagen' + i);
+                                                        const href = document.getElementById("href" + casalocal['ID'] + 'Imagen' + i);
+                                                        [1,2,3].map(a => {document.getElementById("href" + casalocal['ID'] + 'Imagen' + a).style.opacity = "0.75"})
+                                                        if (img)
+                                                        {
+                                                            img.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
+                                                            href.style.opacity = '1';
+                                                        }
+                                                    }}
+                                                />
                                             ))
                                         }
                                     </div>
@@ -178,19 +193,19 @@ function Previewhome(props) {
                                     <div className='dato'>
                                         {
                                             casalocal['recamaras'] !== null ?
-                                                <><i className="fa-solid fa-bed"></i> {casalocal['recamaras']} Recamara &#160;</>
+                                                <><i className="fa-solid fa-bed"></i> {casalocal['recamaras']} Recamara &#160;<br/></>
                                                 : null
                                         }
 
                                         {
                                             casalocal['banos'] !== null ?
-                                                <><i className='fa-solid fa-shower'></i> {casalocal['banos']} Banos &#160;</>
+                                                <><i className='fa-solid fa-shower'></i> {casalocal['banos']} Baños &#160;<br/></>
                                                 : null
                                         }
 
                                         {
                                             casalocal['area'] !== null ?
-                                                <><i className="fa-solid fa-maximize"></i> {casalocal['area']}m&sup2; &#160;</>
+                                                <><i className="fa-solid fa-maximize"></i> {casalocal['area']}m&sup2; &#160;<br/></>
                                                 : null
                                         }
 
@@ -209,48 +224,6 @@ function Previewhome(props) {
                         </div>
                     ))
                 }
-
-                {/**
-                     
-                        <div className = 'casa-local'>
-
-                        <div className = 'status-casalocal'>Venta/Renta</div>
-
-                        <div className = 'caracteristicas'>
-                            {/* image */}{/*
-                            <div className = 'slider-wrapper'>
-                                
-                                <div className = 'slider'>
-                                    <img id = 'image1' src = {props.img} alt = ''/>
-                                    <img id = 'image2' src = {props.logo} alt = ''/>
-                                    <img id = 'image3' src = {props.img} alt = ''/>
-                                </div>
-
-                                <div className = 'slider-nav'>
-                                    <a href='#image1' aria-hidden="true" />
-                                    <a href = '#image2' aria-hidden = "true" />
-                                    <a href = '#image3' aria-hidden = "true" />
-                                </div>
-
-                            </div>
-                            
-                            <div className = 'datos'>
-                                <div className = 'dato'>titulo</div>
-                                <div className = 'dato'>$$$$</div>
-                                <div className = 'dato'>lugar</div>
-                                <div className = 'dato'>
-                                <i className = "fa-solid fa-bed"></i> 1 Vivienda &#160;
-                                <i className = "fa-solid fa-shower"></i> Baños &#160;
-                                <i className = "fa-solid fa-maximize"></i> 200 &#13217;
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                     */}
-
             </div>
 
         </div>

@@ -59,7 +59,6 @@ function HEADER(props) {
             </ul>
 
             <nav>
-
                 {
                     Object.keys(props.navpages).map(e => ( //
                         <a

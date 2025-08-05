@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `actualizarcasalocal` (IN `ids` INT(8), IN `tipop` VARCHAR(25), IN `statusl` VARCHAR(15), IN `cal` VARCHAR(255), IN `Cp` INT(10), IN `ciud` VARCHAR(255), IN `Ri` VARCHAR(255), IN `paiss` VARCHAR(255), IN `rec` TINYINT(2), IN `ban` TINYINT(2), IN `estaci` TINYINT(2), IN `areas` FLOAT, IN `precios` FLOAT, IN `descr` VARCHAR(255), IN `Im1` VARCHAR(255), IN `Im2` VARCHAR(255), IN `Im3` VARCHAR(255), IN `fechain` DATE, IN `fechaact` DATE, IN `fechafin` DATE)   BEGIN
+CREATE PROCEDURE `actualizarcasalocal` (IN `ids` INT(8), IN `tipop` VARCHAR(25), IN `statusl` VARCHAR(15), IN `cal` VARCHAR(255), IN `Cp` INT(10), IN `ciud` VARCHAR(255), IN `Ri` VARCHAR(255), IN `paiss` VARCHAR(255), IN `rec` TINYINT(2), IN `ban` TINYINT(2), IN `estaci` TINYINT(2), IN `areas` FLOAT, IN `precios` FLOAT, IN `descr` VARCHAR(255), IN `Im1` VARCHAR(255), IN `Im2` VARCHAR(255), IN `Im3` VARCHAR(255), IN `fechain` DATE, IN `fechaact` DATE, IN `fechafin` DATE)   BEGIN
 UPDATE immoviliaria SET 
 tipo_propiedad = tipop, 
 status_local = statusl, 
@@ -49,7 +49,7 @@ fechatermino = fechafin
 WHERE ID = ids;	
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `addlistones` (IN `tip` INT(2), IN `tit1` VARCHAR(30), IN `desc1` VARCHAR(255), IN `tit2` VARCHAR(30), IN `desc2` VARCHAR(255), IN `tit3` VARCHAR(30), IN `desc3` VARCHAR(255), IN `img` VARCHAR(255))   INSERT INTO listones VALUES (
+CREATE PROCEDURE `addlistones` (IN `tip` INT(2), IN `tit1` VARCHAR(30), IN `desc1` VARCHAR(255), IN `tit2` VARCHAR(30), IN `desc2` VARCHAR(255), IN `tit3` VARCHAR(30), IN `desc3` VARCHAR(255), IN `img` VARCHAR(255))   INSERT INTO listones VALUES (
     tip, 
     tit1, 
     desc1, 
@@ -60,19 +60,19 @@ CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `addlistones` (IN `tip` INT(2),
     img
 )$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `borrarliston` (IN `ids` INT(11))   BEGIN
+CREATE PROCEDURE `borrarliston` (IN `ids` INT(11))   BEGIN
 DELETE FROM listones WHERE ID = ids;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `checarllave` (IN `llave` CHAR(255))   BEGIN
+CREATE PROCEDURE `checarllave` (IN `llave` CHAR(255))   BEGIN
 	SELECT accesskey FROM accesskey WHERE accesskey = llave;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `Contactos` ()   BEGIN
+CREATE PROCEDURE `Contactos` ()   BEGIN
 	SELECT * FROM contactos;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `crearcasalocal` (IN `tipo_p` VARCHAR(25), IN `status_l` VARCHAR(15), IN `cal` VARCHAR(255), IN `Codigo_p` INT(10), IN `ciud` VARCHAR(255), IN `Reg` VARCHAR(255), IN `pai` VARCHAR(255), IN `recam` TINYINT(2), IN `ban` TINYINT(2), IN `estacion` TINYINT(2), IN `are` FLOAT, IN `prec` FLOAT, IN `desr` VARCHAR(255), IN `Imag1` VARCHAR(255), IN `Imag2` VARCHAR(255), IN `Imag3` VARCHAR(255), IN `fechain` DATE, IN `fechadeact` DATE, IN `fechat` DATE)   BEGIN
+CREATE PROCEDURE `crearcasalocal` (IN `tipo_p` VARCHAR(25), IN `status_l` VARCHAR(15), IN `cal` VARCHAR(255), IN `Codigo_p` INT(10), IN `ciud` VARCHAR(255), IN `Reg` VARCHAR(255), IN `pai` VARCHAR(255), IN `recam` TINYINT(2), IN `ban` TINYINT(2), IN `estacion` TINYINT(2), IN `are` FLOAT, IN `prec` FLOAT, IN `desr` VARCHAR(255), IN `Imag1` VARCHAR(255), IN `Imag2` VARCHAR(255), IN `Imag3` VARCHAR(255), IN `fechain` DATE, IN `fechadeact` DATE, IN `fechat` DATE)   BEGIN
 INSERT INTO immoviliaria VALUE( 
     null, 
     tipo_p, 
@@ -97,7 +97,7 @@ INSERT INTO immoviliaria VALUE(
 );
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `createliston` (IN `tipos` INT(2), IN `titulo1s` VARCHAR(30), IN `descrip1s` VARCHAR(255), IN `titulo2s` VARCHAR(30), IN `descrip2s` VARCHAR(255), IN `titulo3s` VARCHAR(30), IN `descrip3s` VARCHAR(255), IN `Imagens` VARCHAR(255))   BEGIN
+CREATE PROCEDURE `createliston` (IN `tipos` INT(2), IN `titulo1s` VARCHAR(30), IN `descrip1s` VARCHAR(255), IN `titulo2s` VARCHAR(30), IN `descrip2s` VARCHAR(255), IN `titulo3s` VARCHAR(30), IN `descrip3s` VARCHAR(255), IN `Imagens` VARCHAR(255))   BEGIN
 	INSERT INTO listones VALUES (
     	null,
 		tipos,
@@ -111,38 +111,38 @@ CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `createliston` (IN `tipos` INT(
     );
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `existeliston` (IN `ids` INT(11))   BEGIN
+CREATE PROCEDURE `existeliston` (IN `ids` INT(11))   BEGIN
 	SELECT ID FROM listones WHERE ID =ids;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `getcasalocal` (IN `ids` INT(8))   BEGIN
+CREATE PROCEDURE `getcasalocal` (IN `ids` INT(8))   BEGIN
 	SELECT * FROM immoviliaria WHERE ID = ids;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `getlengs` (IN `status_l` VARCHAR(15), IN `tipo_p` VARCHAR(25))   BEGIN
+CREATE PROCEDURE `getlengs` (IN `status_l` VARCHAR(15), IN `tipo_p` VARCHAR(25))   BEGIN
 SELECT COUNT(ID) FROM immoviliaria WHERE status_local = status_l
     AND tipo_propiedad = tipo_p;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `getstatuslocal` (IN `statuslocal` VARCHAR(15), IN `tipolocal` VARCHAR(25), IN `leng` INT(3), IN `curren` INT(3))   BEGIN
+CREATE PROCEDURE `getstatuslocal` (IN `statuslocal` VARCHAR(15), IN `tipolocal` VARCHAR(25), IN `leng` INT(3), IN `curren` INT(3))   BEGIN
 SELECT * FROM immoviliaria 
 WHERE status_local = statuslocal AND tipo_propiedad = tipolocal 
 LIMIT leng OFFSET curren;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `headerandfotter` ()   BEGIN
+CREATE PROCEDURE `headerandfotter` ()   BEGIN
 	SELECT * FROM contactos;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `inmoviliariarando` ()   BEGIN
+CREATE PROCEDURE `inmoviliariarando` ()   BEGIN
 	SELECT * FROM immoviliaria ORDER BY rand() LIMIT 3;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `listones` ()   BEGIN
+CREATE PROCEDURE `listones` ()   BEGIN
 	SELECT * FROM listones;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `searchcreation` (IN `tipo_p` VARCHAR(25), IN `status_l` VARCHAR(15), IN `cal` VARCHAR(255), IN `Codigo_p` INT(10), IN `ciud` VARCHAR(255), IN `Reg` VARCHAR(255), IN `pai` VARCHAR(255), IN `reca` TINYINT(2), IN `bano` TINYINT(2), IN `estacion` TINYINT(2), IN `areas` FLOAT, IN `precios` FLOAT, IN `desri` VARCHAR(255), IN `Img1` VARCHAR(255), IN `Img2` VARCHAR(255), IN `Img3` VARCHAR(2555))   BEGIN
+CREATE PROCEDURE `searchcreation` (IN `tipo_p` VARCHAR(25), IN `status_l` VARCHAR(15), IN `cal` VARCHAR(255), IN `Codigo_p` INT(10), IN `ciud` VARCHAR(255), IN `Reg` VARCHAR(255), IN `pai` VARCHAR(255), IN `reca` TINYINT(2), IN `bano` TINYINT(2), IN `estacion` TINYINT(2), IN `areas` FLOAT, IN `precios` FLOAT, IN `desri` VARCHAR(255), IN `Img1` VARCHAR(255), IN `Img2` VARCHAR(255), IN `Img3` VARCHAR(2555))   BEGIN
 
 SELECT ID FROM immoviliaria WHERE
 tipo_propiedad = tipo_p AND
@@ -162,15 +162,15 @@ Imagen2 = Img2 AND
 Imagen3 = Img3;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `statuslist` ()   BEGIN
+CREATE PROCEDURE `statuslist` ()   BEGIN
 	SELECT * FROM status_local;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `tipolista` ()   BEGIN
+CREATE PROCEDURE `tipolista` ()   BEGIN
 	SELECT * FROM tipo_propiedad;
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `updatecontacts` (IN `cel` CHAR(10), IN `ema` CHAR(255), IN `whats` CHAR(10), IN `faceb` VARCHAR(2083), IN `instagr` VARCHAR(2083), IN `estad` CHAR(25), IN `col` CHAR(255), IN `Ciud` VARCHAR(50), IN `cal` CHAR(255), IN `nolocal` INT(4), IN `log` VARCHAR(255), IN `sub_l` VARCHAR(255), IN `titul` VARCHAR(30), IN `desripc` VARCHAR(255))   BEGIN
+CREATE PROCEDURE `updatecontacts` (IN `cel` CHAR(10), IN `ema` CHAR(255), IN `whats` CHAR(10), IN `faceb` VARCHAR(2083), IN `instagr` VARCHAR(2083), IN `estad` CHAR(25), IN `col` CHAR(255), IN `Ciud` VARCHAR(50), IN `cal` CHAR(255), IN `nolocal` INT(4), IN `log` VARCHAR(255), IN `sub_l` VARCHAR(255), IN `titul` VARCHAR(30), IN `desripc` VARCHAR(255))   BEGIN
 
 UPDATE contactos SET 
 celular = cel, 
@@ -190,7 +190,7 @@ desripcion = desripc;
 
 END$$
 
-CREATE DEFINER=`id22101812_miguel`@`%` PROCEDURE `updatelistones` (IN `IDs` INT(11), IN `tipos` INT(2), IN `titulo1s` VARCHAR(30), IN `descrip1s` VARCHAR(255), IN `titulo2s` VARCHAR(30), IN `descrip2s` VARCHAR(255), IN `titulo3s` VARCHAR(30), IN `descrip3s` VARCHAR(255), IN `Imagens` VARCHAR(255))   BEGIN
+CREATE PROCEDURE `updatelistones` (IN `IDs` INT(11), IN `tipos` INT(2), IN `titulo1s` VARCHAR(30), IN `descrip1s` VARCHAR(255), IN `titulo2s` VARCHAR(30), IN `descrip2s` VARCHAR(255), IN `titulo3s` VARCHAR(30), IN `descrip3s` VARCHAR(255), IN `Imagens` VARCHAR(255))   BEGIN
 	UPDATE listones SET 
     tipo = tipos,
     titulo1 = titulo1s,

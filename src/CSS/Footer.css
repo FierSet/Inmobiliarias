@@ -6,11 +6,11 @@ footer
     min-height: 5%;
     width: 100%;
     background-color: rgb(180, 255, 255);
-    /*background-image: url("../IMG/Footer.jpg");
-    background-size: cover;*/
+    position: relative; /* or fixed if you want it always at the bottom */
+    bottom: 0;
 }
 
-footer  .group
+footer .group
 {
     width: 100%;
     margin: auto;
@@ -20,13 +20,13 @@ footer  .group
     align-items: center;
 }
 
-footer  .group .box
+footer .group .box
 {
     padding-left: 5px;
     padding-top: 5px;
 }
 
-footer  .group .logo
+footer .group .logo
 {
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@ footer  .group .logo
     
 }
 
-footer  .group .box img
+footer .group .box img
 {
     width: 190px;
     height: 140px;
