@@ -1,16 +1,29 @@
 import { useState } from "react";
 
+import img1 from '../../IMG/Default/Backroom1.jpg';
+import img2 from '../../IMG/Default/Backroom2.jpg';
+import img3 from '../../IMG/Default/Backroom3.webp';
+
+const IMAGENBASE = {
+    0: img1,
+    1: img2,
+    2: img3
+}
+
 function Singleelement(props) {
 
     const [imagen, setimagen] = useState('');
     const [showimagen, setshowimagen] = useState(false);
 
     return (
-        <div className='single-element-base' >
+        <div className={`single-element-base${props.muestralocal ? '' : ' hide'}`} >
             <div className='single-local' >
-                <div className='status-casalocal' >{props.singelelement['status_local']}</div> {/* solo muestra el estatus del local */}
 
-                <div className='close' onClick={() => props.setmuestralocal(false)}><i class="fa-solid fa-x"></i></div>
+                <div className = 'header-casalical'>
+                    <div className='close' onClick={() => props.setmuestralocal(false)}><i class="fa-solid fa-x"></i></div>
+
+                    <div className='status-casalocal' >{props.singelelement['status_local']}</div> {/* solo muestra el estatus del local */}
+                </div> 
 
                 <div className='datos-carta' >
                     <div className='dato-carta-titulo' id='titulo'> {'ID: ' + props.singelelement['ID'] + ' - ' + props.singelelement['tipo_propiedad']}</div>
@@ -57,27 +70,25 @@ function Singleelement(props) {
                     <div className="descripcion">{props.singelelement['desripcion']}</div>
                     
                     <hr/>
-
-                    <div className="imagen-zone">
-                        {
-                            [1, 2, 3].map(i => (
-
-                                props.singelelement['Imagen' + i] !== null ?
-                                    <img onClick={() => {setimagen(props.singelelement['Imagen' + i]); setshowimagen(true);}} key={props.singelelement['ID'] + 'Imagen' + i} id={props.singelelement['ID'] + 'Imagen' + i} src={props.singelelement['Imagen' + i]} alt='' />
-                                    :
-                                    <img key={props.singelelement['ID'] + 'Imagen' + i} id={props.singelelement['ID'] + 'Imagen' + i} src={props.IMAGENBASE[Math.floor(Math.random() * 3)]} alt='' />
-                            ))
-                        }
+                    <div className="imagenbox">
+                        <div className="imagen-zone">
+                            {
+                                [1, 2, 3].map(i => (
+                                    props.singelelement['Imagen' + i] !== null ?
+                                        <img onClick={() => {setimagen(props.singelelement['Imagen' + i]); setshowimagen(true);}} key={props.singelelement['ID'] + 'Imagen' + i} id={props.singelelement['ID'] + 'Imagen' + i} src={props.singelelement['Imagen' + i]} alt='' />
+                                        :
+                                        <img key={IMAGENBASE[i] + 'Imagen' + i} id={IMAGENBASE[i] + 'Imagen' + i} src={IMAGENBASE[i]} alt='' />
+                                ))
+                            }
+                        </div>
                     </div>
-
                 </div>
             </div>
             {
-                showimagen ?
-                    <div className='single-imagen' onClick={() => setshowimagen(false)}>
-                        <img src={imagen}/>
-                    </div>
-                    : null
+                <div className={`single-imagen${showimagen ? '' : ' hide'}`} onClick={() => setshowimagen(false)}>
+                    <img src={imagen}/>
+                </div>
+
             }
         </div>
     );

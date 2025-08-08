@@ -31,7 +31,7 @@ function App() {
   {
     'Inicio': <Home status_tipo_locca={status_tipo_locca} paginabase={paginabase}/>,
     'Acerca de': <Acercade />,
-    'Acceder': <Acedder paginabase = {paginabase}/>
+    'Editar': <Acedder paginabase = {paginabase}/>
   }
 
   useEffect(() => {

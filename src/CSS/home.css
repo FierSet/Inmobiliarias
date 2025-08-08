@@ -48,7 +48,7 @@
 
 .status-desplegable , .tipolocal-desplegable, button
 {
-    width: max-content;
+    /*text-align: center;*/
     height: 30px;
 }
 
@@ -204,11 +204,13 @@
     color: white;
 }
 
+hr{
+    margin: 5px;
+}
 
 .view-localles .casa-local .caracteristicas .datos
 {
     padding: 1px;
-    
     /*border: black 1px solid; */
 }
 

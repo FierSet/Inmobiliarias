@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Card from '../../js_element/card.js';
 
 function Listpreview(props) {
 
@@ -86,94 +87,7 @@ function Listpreview(props) {
                         </div>
                         {
                             objetocasa.map(casalocal => (
-                                <div className='casa-local'>
-
-                                    <div className='status-casalocal'
-                                        style={{background: (casalocal['status_local'] === 'Rentado' || casalocal['status_local'] === 'Vendido') ? '#FFA500' :
-                                                (casalocal['status_local'] === 'Cancelado') ? '#FF0000' : '#25D366'
-                                        }} >
-                                        {casalocal['status_local']}
-                                    </div> {/* solo muestra el estatus del local */}
-                                    <button className='button-vew' onClick={() => { props.setmuestralocal(true); props.setsingelelement(casalocal) }}>Visualizar</button>{/* permite abrir otra ventana para visualizar los detalles de cada elemento */}
-
-                                    <div className='caracteristicas'>
-                                        {/* image */}
-                                        <div className='slider-wrapper'> {/* zona de imagen de cada elemento */}
-                                            <div className='slider'> {/* carga las 3 imagenes mediante una matriz */}
-                                                {
-                                                    [1, 2, 3].map(i => (
-
-                                                        casalocal['Imagen' + i] !== null ?
-                                                            <img key={casalocal['ID'] + 'Imagen' + i} id={casalocal['ID'] + 'Imagen' + i} src={casalocal['Imagen' + i]} alt='' />
-                                                            :
-                                                            <img key={casalocal['ID'] + 'Imagen' + i} id={casalocal['ID'] + 'Imagen' + i} src={props.IMAGENBASE[Math.floor(Math.random() * 3)]} alt='' />
-                                                    ))
-                                                }
-                                            </div> {/*end carga las 3 imagenes mediante una matriz */}
-
-                                            <div className='slider-nav'> {/* este elemento permite cambiar las imagenes */}
-                                                {
-                                                    [1, 2, 3].map(i => (
-                                                        <a
-                                                            href={"#" + casalocal['ID'] + 'Imagen' + i} 
-                                                            key={"#" + casalocal['ID'] + 'Imagen' + i}
-                                                            id={"href" + casalocal['ID'] + 'Imagen' + i}
-                                                            aria-hidden="true" 
-                                                            onClick={e => 
-                                                            {
-                                                                e.preventDefault();
-                                                                const img = document.getElementById(casalocal['ID'] + 'Imagen' + i);
-                                                                const href = document.getElementById("href" + casalocal['ID'] + 'Imagen' + i);
-                                                                [1,2,3].map(a => {document.getElementById("href" + casalocal['ID'] + 'Imagen' + a).style.opacity = "0.75"})
-                                                                if (img)
-                                                                {
-                                                                    img.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
-                                                                    href.style.opacity = '1';
-                                                                }
-                                                            }}
-                                                        />
-                                                    ))
-                                                }
-                                            </div>
-                                        </div> {/*end zona de imagen de cada elemento */}
-
-                                        <div className='datos'> {/* carga los datos especificados mediate la matriz */}
-                                            <div className='dato' id='titulo'> {casalocal['ID'] + ": " + casalocal['tipo_propiedad']}</div>
-                                            <div className='dato' id='precio'>${new Intl.NumberFormat().format(casalocal['precio'])}</div>
-                                            <div className='dato' id='lugar'> {casalocal['calle'] + ', ' + casalocal['Codigo_postal']}</div>
-
-                                            <div className='dato'>
-                                                {
-                                                    casalocal['recamaras'] !== null ?
-                                                        <><i className="fa-solid fa-bed"></i> {casalocal['recamaras']} Recamara &#160;<br/></>
-                                                        : null
-                                                }
-
-                                                {
-                                                    casalocal['banos'] !== null ?
-                                                        <><i className='fa-solid fa-shower'></i> {casalocal['banos']} Banos &#160;<br/></>
-                                                        : null
-                                                }
-
-                                                {
-                                                    casalocal['area'] !== null ?
-                                                        <><i className="fa-solid fa-maximize"></i> {casalocal['area']}m&sup2; &#160;<br/></>
-                                                        : null
-                                                }
-
-                                                {
-                                                    casalocal['estacionamientos'] !== null && casalocal['estacionamientos'] !== 0 ?
-                                                        <><i className="fa-solid fa-car"></i> {casalocal['estacionamientos']} estacionamientos</>
-                                                        : null
-                                                }
-
-                                            </div>
-
-                                        </div> {/*end carga los datos especificados mediate la matriz */}
-
-                                    </div>
-
-                                </div>
+                               <Card casalocal = {casalocal} interface={props} />
                             ))
                         }
                     </div>

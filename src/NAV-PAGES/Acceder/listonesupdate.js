@@ -58,7 +58,7 @@ function Listones(props) {
         }
     }
 
-    const listones = (l) => {
+    const listone = (l) => {
         switch (l.tipo) {
             case '1':
                 return (
@@ -127,8 +127,8 @@ function Listones(props) {
     const loadpage = (event) => {
         event.preventDefault();
 
-        var bifferliston = liston;
-            bifferliston.borrar = 'noborrar';
+        var bufferliston = liston;
+            bufferliston.borrar = 'noborrar';
         var requestOptions;
 
 
@@ -140,13 +140,13 @@ function Listones(props) {
             }
             else if (borrar) 
             {
-                bifferliston.ID = liston.ID;
-                bifferliston.borrar = 'borrar';
+                bufferliston.ID = liston.ID;
+                bufferliston.borrar = 'borrar';
 
                 requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(bifferliston)
+                    body: JSON.stringify(bufferliston)
                 };
 
                 conectiondbapost(requestOptions, 'updateliston.php')
@@ -155,7 +155,7 @@ function Listones(props) {
                 requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(bifferliston)
+                    body: JSON.stringify(bufferliston)
                 };
 
                 conectiondbapost(requestOptions, 'updateliston.php')
@@ -178,7 +178,7 @@ function Listones(props) {
         <div className="edicion-listones">
             <form onSubmit={loadpage}>
                 <label>Tipo:</label>
-                <select name="tipo" value={liston.tipo} onChange={handleImputchange} required>
+                <select name="tipo" id = "selecttipo" value={liston.tipo} onChange={handleImputchange} required>
                     <option key='0' value='0'></option>
                     <option key='1' value='1'>1</option>
                     <option key='2' value='2'>2</option>
@@ -222,12 +222,18 @@ function Listones(props) {
                     value={liston.descrip3}
                     onChange={handleImputchange}
                 />
-
-                <label>Imagen:</label>
-                <input name="Imagen"
-                    value={liston.Imagen}
-                    onChange={handleImputchange}
-                />
+                {
+                    liston.tipo !== '2' ?
+                    <>
+                        <label>Imagen:</label>
+                        <input name="Imagen"
+                            value={liston.Imagen}
+                            onChange={handleImputchange}
+                        />
+                    </>
+                    :
+                    null
+                }
 
                 <button type="submit">Subir.</button>
                 <button type="submit" onClick={() => setborrar(true)}>Borrar</button>
@@ -238,7 +244,7 @@ function Listones(props) {
             <div className="prevew-liston">
                 <h5>vista previa</h5>
                 {
-                    listones(liston)
+                    listone(liston)
                 }
             </div>
             <br />
@@ -250,7 +256,7 @@ function Listones(props) {
                     mostrarlistones.map(l => (
                         <div onClick={() => setliston(l)}>
                             {
-                                listones(l)
+                                listone(l)
                             }
                             <br />
                         </div>

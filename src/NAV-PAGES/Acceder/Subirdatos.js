@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+import Card from '../../js_element/card.js'
+import Singleelement from '../homemsets/show_single_element';
+
 function Casalocalupdate(props) {
 
     const [cancelar, setcancelar] = useState(false);
@@ -8,38 +11,33 @@ function Casalocalupdate(props) {
 
     const [idsearch, stidsearch] = useState(null) //id del elemento que se desea buscar
 
-    const [showtable, setshowtable] = useState(false) //muestra la tabla
-
     const todaystart = new Date();
 
     const baselocal = { //nos permite vaciar los valores para volverlos a editar
         ID: 0,
-        tipo_propiedad: '',
-        status_local: '',
-        calle: '',
-        Codigo_postal: '',
-        ciudad: '',
-        Region: '',
+        tipo_propiedad: 'Casa',
+        status_local: 'Renta',
+        calle: 'street',
+        Codigo_postal: '00000',
+        ciudad: 'CDMX',
+        Region: 'CDMX',
         pais: 'Mexico',
-        recamaras: '',
-        banos: '',
-        estacionamientos: '',
-        area: '',
-        precio: '',
-        desripcion: '',
-        Imagen1: '',
-        Imagen2: '',
-        Imagen3: '',
+        recamaras: '1',
+        banos: '1',
+        estacionamientos: '1',
+        area: '100',
+        precio: '10000',
+        desripcion: 'EXAMPLE DESCRIPTION',
+        Imagen1: null,
+        Imagen2: null,
+        Imagen3: null,
         fechainicio: `${todaystart.getFullYear()}-${todaystart.getMonth() + 1}-${todaystart.getDate()}`,
-        fechadeactualizacion: '',
-        fechatermino: ''
+        fechadeactualizacion: `${todaystart.getFullYear()}-${todaystart.getMonth() + 1}-${todaystart.getDate()}`,
+        fechatermino: `${todaystart.getFullYear()}-${todaystart.getMonth() + 1}-${todaystart.getDate()}`
     }
-
-    const [localcasaed, setlocalcasaed] = useState(baselocal) // se utiliza para subirlo al servidor
-
-
     const [localcasa, setlocalcasa] = useState(baselocal) // solo se usa para buscar informacion
-
+    const [muestralocal, setmuestralocal] = useState(false);
+    const [singelelement, setsingelelement] = useState([]);
 
     useEffect(() => {
         conectiondbapost(null, 'status_local.php');
@@ -69,20 +67,23 @@ function Casalocalupdate(props) {
         if (page === 'local_search.php') {
             if (data === 'No found') {
                 stidsearch(null)
-                setshowtable(false)
+                //setshowtable(false)
+                cargabusqueda()
                 alert(data)
             }
             else {
                 tojason = JSON.parse(data)
                 stidsearch(null)
                 setlocalcasa(tojason[0])
-                setshowtable(true)
+                cargabusqueda()
+                //setshowtable(true)
             }
         }
         else if (page === 'status_local.php') {
             tojason = JSON.parse(data)
             // console.log(tojason)
             setstatus_tipo_locca(tojason)
+            
         }
         else if (page === 'updatecasalocal.php') {
             alert(data)
@@ -103,20 +104,19 @@ function Casalocalupdate(props) {
     }
 
     const cargabusqueda = () => {
-        setlocalcasaed(baselocal) // vacia la variable editable
-        setlocalcasaed(localcasa) //asigna el nuevo valor a dicha variable
+        
     }
 
     const verificaddata = () => {
         var today = new Date();
 
-        var bufferlocal = localcasaed;
+        var bufferlocal = localcasa;
         console.log(bufferlocal)
         var page = '';
 
-        if (localcasaed.ID !== 0) {
+        if (localcasa.ID !== 0) {
             bufferlocal.fechadeactualizacion = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-            if (localcasaed.status_local === 'Cancelado')
+            if (localcasa.status_local === 'Cancelado')
                 bufferlocal.fechatermino = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
             page = 'updatecasalocal.php';
         }
@@ -125,8 +125,6 @@ function Casalocalupdate(props) {
             bufferlocal.fechadeactualizacion = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
             page = 'createcasalocal.php';
         }
-
-        setlocalcasaed(bufferlocal);
 
         const requestOptions = {
             method: 'POST',
@@ -164,8 +162,6 @@ function Casalocalupdate(props) {
 
     const emptyglobal = () => {
         setlocalcasa(baselocal)
-        setlocalcasaed(baselocal)
-        setshowtable(false)
         setcancelar(false)
         stidsearch(0)
     }
@@ -173,8 +169,8 @@ function Casalocalupdate(props) {
 
     const handleImputchange = (event) => {
         const { name, value } = event.target;
-        setlocalcasaed({
-            ...localcasaed,
+        setlocalcasa({
+            ...localcasa,
             [name]: value,
         });
     }
@@ -190,30 +186,8 @@ function Casalocalupdate(props) {
                             value={idsearch}
                             onChange={v => stidsearch(v.target.value)}
                         ></input>
-                        <button className="buscar" onClick={() => buscarlocal()}>buscar</button>
+                        <button className="buscar" onClick={() => {buscarlocal();  }}>buscar</button>
                     </div>
-                    {
-                        showtable ?
-                            <div className="tablelocal">
-                                <table>
-                                    <tr>
-                                        {
-                                            Object.keys(localcasa).map(k => (
-                                                <th>{k}</th>
-                                            ))
-                                        }
-                                    </tr>
-                                    <tr>
-                                        {
-                                            Object.keys(localcasa).map(k => (
-                                                <td onClick={() => cargabusqueda()}>{localcasa[k]}</td>
-                                            ))
-                                        }
-                                    </tr>
-                                </table>
-                            </div>
-                            : null
-                    }
                 </div>
 
             </div>
@@ -224,31 +198,49 @@ function Casalocalupdate(props) {
                     <form className='localdataupdate-fields' onSubmit={loadpage}>
 
                         <label >ID:</label>
-                        <input type='number'
+                        <input 
+                            type='number'
                             name='ID'
                             placeholder='ID'
                             id='ID'
                             maxLength='8'
                             disabled
-                            value={localcasaed.ID}
-                            onChange={handleImputchange}
-                        ></input>
+                            value={localcasa.ID}
+                            onChange={handleImputchange}>
+                            </input>
 
                         <label>Tipo Propiedad:</label>
-                        <select name='tipo_propiedad' value={localcasaed.tipo_propiedad} onChange={handleImputchange}>
-                            <option key='empty' value=''></option>
+                        <select 
+                            name='tipo_propiedad' 
+                            value={localcasa.tipo_propiedad} 
+                            onChange={handleImputchange}>
+                            <option 
+                                key='empty' 
+                                value=''
+                            ></option>
                             {
                                 status_tipo_locca.map(l => (
                                     Object.keys(l).toString() === 'tipo_propiedad' ?
-                                        <option key={l['tipo_propiedad']} value={l['tipo_propiedad']}>{l['tipo_propiedad']}</option>
+                                        <option 
+                                            key={l['tipo_propiedad']}
+                                            value={l['tipo_propiedad']}>
+                                            {l['tipo_propiedad']}
+                                        </option>
                                         : null
                                 ))
                             }
                         </select>
 
                         <label>Status del Local:</label>
-                        <select name='status_local' value={localcasaed.status_local} onChange={handleImputchange}>
-                            <option key='empty' value=''></option>
+                        <select 
+                            name='status_local' 
+                            value={localcasa.status_local} 
+                            onChange={handleImputchange}
+                        >
+                            <option 
+                            key='empty' 
+                            value=''>
+                            </option>
                             {
                                 status_tipo_locca.map(l => (
                                     Object.keys(l).toString() === 'status_local' ?
@@ -259,13 +251,14 @@ function Casalocalupdate(props) {
                         </select>
 
                         <label >Calle:</label>
-                        <input type='text'
+                        <input 
+                            type='text'
                             name='calle'
                             placeholder='Calle'
                             id='calle'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.calle}
+                            value={localcasa.calle}
                             onChange={handleImputchange}
                         ></input>
 
@@ -276,7 +269,7 @@ function Casalocalupdate(props) {
                             id='Codigo_postal'
                             maxLength='10'
                             required={!cancelar}
-                            value={localcasaed.Codigo_postal}
+                            value={localcasa.Codigo_postal}
                             onChange={handleImputchange}
                         ></input>
 
@@ -287,7 +280,7 @@ function Casalocalupdate(props) {
                             id='ciudad'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.ciudad}
+                            value={localcasa.ciudad}
                             onChange={handleImputchange}
                         ></input>
 
@@ -298,7 +291,7 @@ function Casalocalupdate(props) {
                             id='Region'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.Region}
+                            value={localcasa.Region}
                             onChange={handleImputchange}
                         ></input>
 
@@ -309,7 +302,7 @@ function Casalocalupdate(props) {
                             id='pais'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.pais}
+                            value={localcasa.pais}
                             onChange={handleImputchange}
                         ></input>
 
@@ -320,7 +313,7 @@ function Casalocalupdate(props) {
                             id='recamaras'
                             maxLength='2'
                             required={!cancelar}
-                            value={localcasaed.recamaras}
+                            value={localcasa.recamaras}
                             onChange={handleImputchange}
                         ></input>
 
@@ -331,7 +324,7 @@ function Casalocalupdate(props) {
                             id='banos'
                             maxLength='2'
                             required={!cancelar}
-                            value={localcasaed.banos}
+                            value={localcasa.banos}
                             onChange={handleImputchange}
                         ></input>
 
@@ -342,7 +335,7 @@ function Casalocalupdate(props) {
                             id='estacionamientos'
                             maxLength='2'
                             required={!cancelar}
-                            value={localcasaed.estacionamientos}
+                            value={localcasa.estacionamientos}
                             onChange={handleImputchange}
                         ></input>
 
@@ -352,7 +345,7 @@ function Casalocalupdate(props) {
                             placeholder='Area'
                             id='area'
                             required={!cancelar}
-                            value={localcasaed.area}
+                            value={localcasa.area}
                             onChange={handleImputchange}
                         ></input>
 
@@ -362,7 +355,7 @@ function Casalocalupdate(props) {
                             placeholder='precio'
                             id='precio'
                             required={!cancelar}
-                            value={localcasaed.precio}
+                            value={localcasa.precio}
                             onChange={handleImputchange}
                         ></input>
 
@@ -372,7 +365,7 @@ function Casalocalupdate(props) {
                             placeholder='Descripcion'
                             id='desripcion'
                             required={!cancelar}
-                            value={localcasaed.desripcion}
+                            value={localcasa.desripcion}
                             onChange={handleImputchange}
                         ></textarea>
 
@@ -383,7 +376,7 @@ function Casalocalupdate(props) {
                             id='Imagen1'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.Imagen1}
+                            value={localcasa.Imagen1}
                             onChange={handleImputchange}
                         ></input>
 
@@ -394,7 +387,7 @@ function Casalocalupdate(props) {
                             id='Imagen2'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.Imagen2}
+                            value={localcasa.Imagen2}
                             onChange={handleImputchange}
                         ></input>
 
@@ -405,7 +398,7 @@ function Casalocalupdate(props) {
                             id='Imagen3'
                             maxLength='255'
                             required={!cancelar}
-                            value={localcasaed.Imagen3}
+                            value={localcasa.Imagen3}
                             onChange={handleImputchange}
                         ></input>
 
@@ -415,7 +408,7 @@ function Casalocalupdate(props) {
                             placeholder='fechainicio'
                             id='fechainicio'
                             disabled={!cancelar}
-                            value={localcasaed.fechainicio}
+                            value={localcasa.fechainicio}
                             onChange={handleImputchange}
                         ></input>
 
@@ -425,7 +418,7 @@ function Casalocalupdate(props) {
                             placeholder='fechadeactualizacion'
                             id='fechadeactualizacion'
                             disabled
-                            value={localcasaed.fechadeactualizacion}
+                            value={localcasa.fechadeactualizacion}
                             onChange={handleImputchange}
                         ></input>
 
@@ -435,73 +428,25 @@ function Casalocalupdate(props) {
                             placeholder='fechatermino'
                             id='fechatermino'
                             disabled
-                            value={localcasaed.fechatermino}
+                            value={localcasa.fechatermino}
                             onChange={handleImputchange}
                         ></input>
 
-                        <button type="submit" >{localcasaed.ID !== 0 ? 'Actualizar' : 'Crear'}</button>
+                        <button type="submit" >{localcasa.ID !== 0 ? 'Actualizar' : 'Crear'}</button>
                         <button onClick={() => { setcancelar(true) }}>Cancelar</button>
                     </form>
                 </div>
 
                 <div className='casalocal-section'>
                     <h4>Vista previa </h4>
-                    <div className='casa-local' >
 
-                        <div className='status-casalocal' 
-                        style={{background: (localcasaed['status_local'] === 'Rentado' || localcasaed['status_local'] === 'Vendido') ? '#FFA500' :
-                        (localcasaed['status_local'] === 'Cancelado') ? '#FF0000' : '#25D366'}}>{localcasaed['status_local']}</div> {/* solo muestra el estatus del local */}
-
-                        <button className='button-vew'>Visualizar</button> {/* permite abrir otra ventana para visualizar los detalles de cada elemento */}
-
-                        <div className='caracteristicas'>
-                            {/* image */}
-                            <div className='slider-wrapper'>
-
-                                <div className='slider'>
-
-                                    <img key='preview-image1' id='preview-image1' src={localcasaed['Imagen1']} alt='' />
-                                    <img key='preview-image2' id='preview-image2' src={localcasaed['Imagen2']} alt='' />
-                                    <img key='preview-image3' id='preview-image3' src={localcasaed['Imagen3']} alt='' />
-
-                                </div>
-
-                                <div className='slider-nav'>
-
-                                    <a href='#preview-image1' key='select-preview-image1' aria-hidden="true" />
-                                    <a href='#preview-image2' key='select-preview-image2' aria-hidden="true" />
-                                    <a href='#preview-image3' key='select-preview-image3' aria-hidden="true" />
-
-                                </div>
-
-                            </div>
-
-                            <div className='datos'>
-                                <div className='dato' id='titulo'> {localcasaed['tipo_propiedad']}</div>
-                                <div className='dato' id='precio'>${new Intl.NumberFormat().format(localcasaed['precio'])}</div>
-                                <div className='dato' id='lugar'> {localcasaed['calle'] + ', ' + localcasaed['Codigo_postal']}</div>
-
-                                <div className='dato'>
-
-                                    <><i className="fa-solid fa-bed"></i> {localcasaed['recamaras']} Recamara &#160;</>
-
-                                    <><i className='fa-solid fa-shower'></i> {localcasaed['banos']} Banos &#160;</>
-
-                                    <><i className="fa-solid fa-maximize"></i> {localcasaed['area']}m&sup2; &#160;</>
-
-                                    <i className="fa-solid fa-car"></i> {localcasaed['estacionamientos']} estacionamientos
-
-
-                                </div>
-
-                            </div>
-
+                        <div className='view-localles-busqueda' style={{ boxShadow: '0 4px 8px rgba(0,0,0,0)', display: 'flex', justifyContent: 'center', width: '100%' }}>
+                            <Card casalocal={localcasa} interface={{ setmuestralocal: setmuestralocal, setsingelelement: setsingelelement }} />
                         </div>
-
-                    </div>
                 </div>
 
             </div>
+            <Singleelement setmuestralocal={setmuestralocal} muestralocal={muestralocal} singelelement={singelelement} />
         </div>
     );
 }

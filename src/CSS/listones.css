@@ -26,20 +26,11 @@
 
 }
 
-@media (max-width: 700px) {
-    
-
-    .liston2
-    {
-        grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    }
-}
-
 
 .liston2
 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     color:white;
     place-items: center;
     padding: 10px;
@@ -58,6 +49,10 @@
 
 @media (max-width: 700px) {
     
+    .liston2
+    {
+        grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    }
     .liston1, .liston3{
         justify-content: center;
         align-items: center;

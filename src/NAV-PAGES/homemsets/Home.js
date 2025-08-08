@@ -1,18 +1,10 @@
-import img1 from '../../IMG/Default/Backroom1.jpg';
-import img2 from '../../IMG/Default/Backroom2.jpg';
-import img3 from '../../IMG/Default/Backroom3.webp';
-
 import Listpreview from './homelist';
 import Singleelement from './show_single_element';
 import Listones from './listones';
 
-import { useEffect, useState } from 'react';
+import Card from '../../js_element/card.js';
 
-const IMAGENBASE = {
-    0: img1,
-    1: img2,
-    2: img3
-}
+import { useEffect, useState } from 'react';
 
 function Home(props) {
     const [objetocasa, setobjetocasa] = useState([]);
@@ -63,7 +55,7 @@ function Home(props) {
                                         <option key={e['status_local']} value={e['status_local']}>{e['status_local']}</option>
                                         : null
 
-                                    : null
+                                : null
                             ))
                         }
                     </select>
@@ -88,9 +80,7 @@ function Home(props) {
                             :
                             null
                     }
-
                 </div>
-
             </div>
 
             <div className='space' />
@@ -107,24 +97,18 @@ function Home(props) {
                     <Listpreview paginabase={props.paginabase} //manda la direccion del servidor
                         tipo_propiedad={tipo_propiedad} //necesaria para hacer la busqueda
                         status_loca={status_loca} //necesaria para hacer la busqueda
-                        IMAGENBASE={IMAGENBASE} // por si no tiene imagenes
                         setmuestralocal={setmuestralocal}//permite editar ña variable 'muestralocal' para ocultar la ventana
                         singelelement={singelelement} //datos de cala elemento
                         setsingelelement={setsingelelement} //cambia los datos de cada elemento
                     />
             }
 
-            {
-                muestralocal ? <Singleelement setmuestralocal={setmuestralocal} singelelement={singelelement} IMAGENBASE={IMAGENBASE} /> : null
-            }
+            <Singleelement setmuestralocal={setmuestralocal} muestralocal = {muestralocal} singelelement={singelelement} />
             <br />
             <hr />
-
             <Listones paginabase={props.paginabase}/>
-            
         </div>
     );
-
 }
 
 function Previewhome(props) {
@@ -132,96 +116,10 @@ function Previewhome(props) {
         <div key='section-casalocal' className='section-casalocal'>
 
             <div className='view-localles'>
-                {/* */}
                 {
-                    props.objetocasa.map(casalocal => (
-                        <div className='casa-local' >
-
-                            <div className='status-casalocal' >{casalocal['status_local']}</div> {/* solo muestra el estatus del local */}
-
-                            <button className='button-vew' onClick={() => { props.setmuestralocal(true); props.setsingelelement(casalocal) }}>Visualizar</button> {/* permite abrir otra ventana para visualizar los detalles de cada elemento */}
-
-                            <div className='caracteristicas'>
-                                {/* image */}
-                                <div className='slider-wrapper'>
-
-                                    <div className='slider'>
-                                        {
-                                            [1, 2, 3].map(i => (
-
-                                                casalocal['Imagen' + i] !== null ?
-                                                    <img key={casalocal['ID'] + 'Imagen' + i} id={casalocal['ID'] + 'Imagen' + i} src={casalocal['Imagen' + i]} alt='' />
-                                                    :
-                                                    <img key={casalocal['ID'] + 'Imagen' + i} id={casalocal['ID'] + 'Imagen' + i} src={IMAGENBASE[Math.floor(Math.random() * 3)]} alt='' />
-                                            ))
-                                        }
-                                    </div>
-
-                                    <div className='slider-nav'>
-                                        {
-                                            [1, 2, 3].map(i =>
-                                            (
-                                                <a
-                                                    href={"#" + casalocal['ID'] + 'Imagen' + i}
-                                                    key={"#" + casalocal['ID'] + 'Imagen' + i}
-                                                    id={"href" + casalocal['ID'] + 'Imagen' + i}
-                                                    aria-hidden="true"
-                                                    onClick={e => 
-                                                    {
-                                                        e.preventDefault();
-                                                        const img = document.getElementById(casalocal['ID'] + 'Imagen' + i);
-                                                        const href = document.getElementById("href" + casalocal['ID'] + 'Imagen' + i);
-                                                        [1,2,3].map(a => {document.getElementById("href" + casalocal['ID'] + 'Imagen' + a).style.opacity = "0.75"})
-                                                        if (img)
-                                                        {
-                                                            img.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
-                                                            href.style.opacity = '1';
-                                                        }
-                                                    }}
-                                                />
-                                            ))
-                                        }
-                                    </div>
-
-                                </div>
-
-                                <div className='datos'>
-                                    <div className='dato' id='titulo'> {casalocal['tipo_propiedad']}</div>
-                                    <div className='dato' id='precio'>${new Intl.NumberFormat().format(casalocal['precio'])}</div>
-                                    <div className='dato' id='lugar'> {casalocal['calle'] + ', ' + casalocal['Codigo_postal']}</div>
-
-                                    <div className='dato'>
-                                        {
-                                            casalocal['recamaras'] !== null ?
-                                                <><i className="fa-solid fa-bed"></i> {casalocal['recamaras']} Recamara &#160;<br/></>
-                                                : null
-                                        }
-
-                                        {
-                                            casalocal['banos'] !== null ?
-                                                <><i className='fa-solid fa-shower'></i> {casalocal['banos']} Baños &#160;<br/></>
-                                                : null
-                                        }
-
-                                        {
-                                            casalocal['area'] !== null ?
-                                                <><i className="fa-solid fa-maximize"></i> {casalocal['area']}m&sup2; &#160;<br/></>
-                                                : null
-                                        }
-
-                                        {
-                                            casalocal['estacionamientos'] !== null ?
-                                                <><i className="fa-solid fa-car"></i> {casalocal['estacionamientos']} estacionamientos</>
-                                                : null
-                                        }
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                    props.objetocasa.map(casalocal => 
+                    (
+                        <Card casalocal = {casalocal} interface={props} />
                     ))
                 }
             </div>
