@@ -198,30 +198,37 @@ function Listones(props) {
                     value={liston.descrip1}
                     onChange={handleImputchange}
                 />
+                {
+                    liston.tipo === '2' ?
+                    <>
+                        <label>Titulo 2:</label>
+                        <input name="titulo2"
+                            value={liston.titulo2}
+                            onChange={handleImputchange}
+                        />
 
-                <label>Titulo 2:</label>
-                <input name="titulo2"
-                    value={liston.titulo2}
-                    onChange={handleImputchange}
-                />
+                        <label>descripción 2:</label>
+                        <textarea name="descrip2"
+                            value={liston.descrip2}
+                            onChange={handleImputchange}
+                        />
 
-                <label>descripción 2:</label>
-                <textarea name="descrip2"
-                    value={liston.descrip2}
-                    onChange={handleImputchange}
-                />
+                        <label>Titulo 3:</label>
+                        <input name="titulo1"
+                            value={liston.titulo3}
+                            onChange={handleImputchange}
+                        />
 
-                <label>Titulo 3:</label>
-                <input name="titulo1"
-                    value={liston.titulo3}
-                    onChange={handleImputchange}
-                />
+                        <label>descripción 3:</label>
+                        <textarea name="descrip3"
+                            value={liston.descrip3}
+                            onChange={handleImputchange}
+                        />
+                    </>
+                    :
+                    null
+                }
 
-                <label>descripción 3:</label>
-                <textarea name="descrip3"
-                    value={liston.descrip3}
-                    onChange={handleImputchange}
-                />
                 {
                     liston.tipo !== '2' ?
                     <>
